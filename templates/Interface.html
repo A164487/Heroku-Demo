@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/3/w3.css">
+  <style>
+  input[type=number] {
+  position: relative;
+  width: 80%;
+  padding: 10px 10px;
+  margin: 5px 0;
+  box-sizing: border-box;
+  border: 2px solid #555;
+  background-color: #FFF1DD;
+  }
+  select[name]{
+  position: relative;
+  width: 80%;
+  padding: 10px 10px;
+  margin: 5px 0;
+  box-sizing: border-box;
+  border: 2px solid #555;
+  background-color: #FFF1DD;
+  }
+  input[type=submit] {
+  background-color: #FFF1DD;
+  color: black;
+  padding: 10px 10px;
+  box-sizing: border-box;
+  border: 2px solid #555;
+  cursor: pointer;
+  float: ;
+  }
+  .container {
+  border-radius: 3px;
+  background-color: #f2f2f2;
+  padding: 20px;
+  box-shadow: 0 0 20px 0 #095484;   
+  }
+  @media screen and (max-width: 600px) {
+  input[type=submit] {
+    width: 100%;
+    margin-top: 0;
+  }
+  }
+  body {
+  background-image: url(B40.jpg);
+  background-color: #FFDAB9
+  }
+  .column {
+  float: left;
+  width: 33.33%;
+  }
+  .column2 {
+  float: left;
+  width: 50%;
+  }
+  .row:after {
+  content: "";
+  display: table;
+  clear: both;
+  }
+  .button {
+  background-color: #4CAF50; 
+  border: none;
+  color: white;
+  padding: 16px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+  }
+.button4 {
+  background-color: white;
+  color: black;
+  border: 2px solid #e7e7e7;
+}
+
+.button4:hover {background-color: #e7e7e7;}
+</style>
+<script>
+  function CurrencyFormatted(amount) {
+  var i = parseFloat(amount);
+  if(isNaN(i)) { i = 0.00; }
+  var minus = '';
+  if(i < 0) { minus = '-'; }
+  i = Math.abs(i);
+  i = parseInt((i + .005) * 100);
+  i = i / 100;
+  s = new String(i);
+  if(s.indexOf('.') < 0) { s += '.00'; }
+  if(s.indexOf('.') == (s.length - 2)) { s += '0'; }
+  s = minus + s;
+  return s;
+}
+</script>
+</head>
+
+<body>
+<form action="{{ url_for('predict')}}"method="post">
+<div class="container" style="text-align: center; background-color: #FFE4E1" >
+
+<div class="content" style="padding:5px;">
+  <h1 class = "margin" style="font-family: Arial" >Community Indicator</h1> 
+</div>
+
+<p><center>Person Information</center></p>
+<div class="row">
+  <div class="column">
+    <label>Marital Status</label>
+    <select name="status" required>
+      <option value="">Select</option>
+      <option value="1">Never Married</option>
+      <option value="2">Married</option>  
+      <option value="3">Widowed</option>
+      <option value="4">Divorced</option>
+      <option value="5">Seperated</option>        
+    </select>
+  </div>
+  <div class="column">
+    <label>Highest level of Education</label>
+    <select name="edu" required>
+      <option value="">Select</option>
+      <option value="0">Pre-primary education</option>
+      <option value="10">Primary education</option>  
+      <option value="20">Lower secondary education</option>
+      <option value="30">Upper secondary education</option>
+      <option value="40">Pre-university</option>        
+      <option value="50">Post-secondary non tertiary education</option>
+      <option value="60">First stage tertiary education at certificate / diploma level</option>
+      <option value="70">First stage tertiary education at degree / advanced diploma / master level</option>
+      <option value="90">Others</option>
+    </select>
+  </div>
+  <div class="column">
+    <label>Occupation</label>
+    <select name="occ" required>
+      <option value="">Select</option>
+      <option value="1">Manager</option>
+      <option value="2">Professional</option>  
+      <option value="3">Technician and Associate Professional</option>
+      <option value="4">Clerical Support Workers</option>
+      <option value="5">Service and Sales Worker</option>        
+      <option value="6">Skilled Agricultural, Forestry and Fishery Worker</option>
+      <option value="7">Craft and related Trade Worker</option>
+      <option value="8">Plant and Machine-Operators and Assembler</option>
+      <option value="9">Elementary Occupations</option>
+      <option value="0">Others</option>
+    </select>
+  </div>
+</div><br>
+     
+<div class="row">
+  <div class="column">
+    <label>Have 2 cars?</label>
+    <select name="twocars" required>
+      <option value="">Select</option>
+      <option value="0">No</option>
+      <option value="1">Yes</option>  
+    </select>
+  </div>
+  <div class="column">
+    <label>Have 3 cars or more?</label>
+    <select name="threecars" required>
+      <option value="">Select</option>
+      <option value="0">No</option>
+      <option value="1">Yes</option>  
+    </select>
+  </div>
+  <div class="column">
+    <label>Have air-conditioner?</label>
+    <select name="ac" required>
+      <option value="">Select</option>
+      <option value="0">No</option>
+      <option value="1">Yes</option>  
+    </select>
+  </div>
+</div><br>
+
+<div class="row">
+  <div class="column">
+    <label>Have laptop?</label>
+    <select name="laptop" required>
+      <option value="">Select</option>
+      <option value="0">No</option>
+      <option value="1">Yes</option>  
+    </select>
+  </div>
+  <div class="column">
+    <label>Have handphone?</label>
+    <select name="hp" required>
+      <option value="">Select</option>
+      <option value="0">No</option>
+      <option value="1">Yes</option>  
+    </select>
+  </div>
+  <div class="column">
+    <label>Have paid TV channel?</label>
+    <select name="tv" required>
+      <option value="">Select</option>
+      <option value="0">No</option>
+      <option value="1">Yes</option>  
+    </select>
+  </div>
+</div><br>
+
+<div class="row">
+  <div class="column">
+    <label>Have Internet subscription?</label>
+    <select name="internet" required>
+      <option value="">Select</option>
+      <option value="0">No</option>
+      <option value="1">Yes</option>  
+    </select>
+  </div>
+  <div class="column">
+    <label>Have Water filter?</label>
+    <select name="water" required>
+      <option value="">Select</option>
+      <option value="0">No</option>
+      <option value="1">Yes</option>  
+    </select>
+  </div>
+  <div class="column">
+    <label>Resident Ownership</label>
+    <select name="ownlq" required>
+      <option value="">Select</option>
+      <option value="2">No</option>  
+      <option value="1">Yes</option>
+      <option value="9">Others</option>
+    </select>
+  </div>
+</div><br>
+
+<div class="row">
+  <div class="column2">
+    <label>Ownership Status</label>
+    <select name="ownership" required>
+      <option value="">Select</option>
+      <option value="1">Individual Owner</option>
+      <option value="2">Government/Statutory Body</option>  
+      <option value="3">Private Sector</option>
+      <option value="4">Others</option>
+    </select>
+  </div>
+  <div class="column2">
+    <label>Total person in Living Quaters</label>
+    <select name="person" required>
+      <option value="">Select</option>
+      <option value="1">1 person</option>
+      <option value="2">2 persons</option>
+      <option value="3">3 persons</option>
+      <option value="4">4 persons</option>
+      <option value="5">5 persons</option>        
+      <option value="6">6-10 persons</option>
+      <option value="7">11-15 persons</option>
+      <option value="8">16-20 persons</option>
+      <option value="9">21 persons and above</option>  
+    </select>
+  </div>
+  <div class="column">
+    
+  </div>
+</div><br>
+
+<p><center>Income Information</center></p>
+<div class="row">
+  <div class="column2">
+    <input name="household" type="number" placeholder="Total Monthly Household Income(RM)" onkeypress="return CurrencyFormatted(amount)" min="1" max="100000" step="0.01" required="required">
+  </div>
+  <div class="column2">
+    <input name="income" type="number" placeholder="Income(RM)" onkeypress="return CurrencyFormatted(amount)" min="1" max="100000" step="0.01" required="required"><br>
+  </div>
+</div>
+<br>
+
+  <div class="row">
+    <button type="submit" class="button button4">Predict B40 category</button>
+
+  </div>  
+</div> 
+</form>
+</body>
+</html>
